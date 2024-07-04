@@ -47,4 +47,9 @@ print(convert_to_json(data))
 
 ## Additional Notes
 - A citation is added as an indicator of successful execution
-  
+```python
+        self.citation = (
+            True  # Attribute to trigger a citation if a return occurs within the tool
+        )
+```
+
