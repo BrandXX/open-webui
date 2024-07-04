@@ -1,44 +1,24 @@
-Title: Convert to JSON
-Author: BrandXX/UserX
-Version: 1.0.1
-License: MIT
-Description: This tool converts data provided from the chat into JSON format and returns it in a markdown code block.
+# Convert to JSON
 
-Requirements:
-    - Python 3.7+
-    - json (standard library)
+**Author:** BrandXX/UserX  
+**Version:** 1.0.1  
+**License:** MIT  
 
-Tested with:
-    - llama3:8b-instruct-fp16
-    - llava-llama3:8b-v1.1-fp16
-    - dolphin-mistral:7b-v2.8-fp16
+## Description
+This tool converts data provided from the chat into JSON format and returns it in a markdown code block.
 
-Usage:
-    Call the function `convert_to_json(data)` with your data as an argument.
-    Example:
-        data = {"name": "John", "age": 30}
-        print(convert_to_json(data))
+## Requirements
+- Python 3.7+
+- `json` (standard library)
 
-Changelog:
-    Version 1.0.1:
-        - Added comments to the function for better understanding.
-        - Added GitHub Repo (under construction)
-    Version 1.0:
-        - Initial release.
+## Tested with
+- llama3:8b-instruct-fp16
+- llava-llama3:8b-v1.1-fp16
+- dolphin-mistral:7b-v2.8-fp16
 
-Contact:
-    Email: N/A
-    GitHub: https://github.com/BrandXX/open-webui
-    
-Dependencies:
-    - None (uses Python standard library)
-
-Future Enhancements:
-    - Add GitHub repo
-    - Add Documentation
-    - Add support for more complex data structures.
-    - Implement validation for input data.
-    - Add SaveAs feature
-
-Additional Notes:
-    - A citation is added as an indicator of successful execution.
+## Usage
+Call the function `convert_to_json(data)` with your data as an argument.  
+Example:
+```python
+data = {"name": "John", "age": 30}
+print(convert_to_json(data))
