@@ -39,11 +39,12 @@ print(convert_to_json(data))
 - None (uses Python standard library)
 
 ## Future Enhancements
-- Add GitHub repo
+- Add GitHub Repo
 - Add Documentation
 - Add support for more complex data structures.
+- Add support for imported datasets via RAG
 - Implement validation for input data.
-- Add SaveAs feature
+- Add SaveAs feature (JSON, XML, etc.)
 
 ## Additional Notes
 - A citation is added as an indicator of successful execution
