@@ -7,7 +7,7 @@ This repository contains:
 
 - Functions: Reusable code snippets that perform specific tasks.
 - Tools: Standalone scripts or applications that add functionality to Open-WebUI.
-- Pipelines: Automated workflows that streamline various processesUsage
+- Pipelines: Automated workflows that streamline various processes
 
 ### Usage
 Each function, tool, or pipeline will have its own instructions for usage. Please refer to the respective folders for detailed information.
