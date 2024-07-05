@@ -12,7 +12,7 @@ This repository contains:
 ### Usage
 Each function, tool, or pipeline will have its own instructions for usage. Please refer to the respective folders for detailed information.
 
-### Contributing
+### (COMING SOON) Contributing
 Contributions are welcome! If you have a function, tool, or pipeline that you think would be useful for the community, please feel free to submit a pull request. Here are some guidelines to get you started:
 
 1. Fork the repository.
