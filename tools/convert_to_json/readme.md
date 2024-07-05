@@ -52,4 +52,5 @@ print(convert_to_json(data))
             True  # Attribute to trigger a citation if a return occurs within the tool
         )
 ```
-
+## OpenWebUI Link
+<a href="https://openwebui.com/t/userx/convert_to_json/" target="_blank">Convert to JSON @OpenWebUI</a>
