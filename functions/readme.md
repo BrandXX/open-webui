@@ -1,1 +1,1 @@
-### Coming Soon To A Theater Near You
+### Coming Soon to a Theater Near You
