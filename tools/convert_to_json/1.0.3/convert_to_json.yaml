@@ -10,7 +10,6 @@ Notes:
 Thanks to @atgehrhardt for the suggestions
 """
 
-
 import json
 from pydantic import BaseModel, Field
 import logging
