@@ -32,6 +32,7 @@ I will implement UserValve once I get it working.
 - Refactored the code
 - Added descriptive and useful comments (Feel free to delete the comments to preserve context length)
 - added pydantic and Logging librabries
+- Thanks to @atgehrhardt, an editor over at https://openwebui.com for the suggestions.
 #### Version 1.0.2
 - Removed Examples as they are not relevant
 #### Version 1.0.1
