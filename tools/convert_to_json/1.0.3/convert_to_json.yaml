@@ -7,7 +7,7 @@ License: MIT
 Description: This tool converts data provided from the chat into JSON format and returns it in a markdown code block.
 GitHub: https://github.com/BrandXX/open-webui/blob/main/tools/convert_to_json/
 Notes:
-Thanks to atgehrhardt for teh suggestions
+Thanks to @atgehrhardt for the suggestions
 """
 
 
