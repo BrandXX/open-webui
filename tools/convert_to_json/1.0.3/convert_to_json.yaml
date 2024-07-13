@@ -1,0 +1,59 @@
+import json
+from pydantic import BaseModel, Field
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+
+
+class Tools:
+    """
+    A class to provide various tools for data manipulation.
+
+    Attributes:
+    -----------
+    citation : bool
+        A flag to trigger a citation if a return occurs within the tool.
+    valves : Tools.Valves
+        An instance of the Valves class to manage settings for the tools.
+    """
+
+    class Valves(BaseModel):
+        """
+        A class to represent the settings for the Tools class.
+
+        Attributes:
+        -----------
+        JSON_INDENT : int
+            The indentation level for the returned JSON.
+        """
+
+        JSON_INDENT: int = Field(
+            default=4,
+            description="The indentation level for the returned JSON.",
+        )
+
+    def __init__(self):
+        self.citation = (
+            True  # Attribute to trigger a citation if a return occurs within the tool
+        )
+        self.valves = self.Valves()
+
+    def convert_to_json(self, data) -> str:
+        """
+        Convert provided data to JSON format and return it with an instruction to format it with the supplied indent value in a code block.
+
+        :param data: The data to be converted to JSON. This can be a dictionary or any serializable Python object.
+        :type data: dict
+        :return: The JSON string with an instruction for the LLM to format it with the supplied indent value in a code block.
+        :rtype: str
+        """
+        try:
+            json_data = json.dumps(data, indent=self.valves.JSON_INDENT)
+            instruction = f"Please format the following JSON in a ```code block``` with an indent level of {self.valves.JSON_INDENT}. !!IMPORTANT!!, the indent level must be adhered to:\n\n"
+            formatted_json = instruction + json_data
+            logging.debug(f"Instruction with JSON data:\n{formatted_json}")
+            return formatted_json
+        except (TypeError, ValueError) as e:
+            error_message = f"Error converting data to JSON: {str(e)}"
+            logging.debug(f"Error message:\n{error_message}")
+            return error_message
