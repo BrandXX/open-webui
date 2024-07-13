@@ -31,7 +31,8 @@ I will implement UserValve once I get it working.
 - Added JSON_INDENT Valve with a default indent value of 4
 - Refactored the code
 - Added descriptive and useful comments (Feel free to delete the comments to preserve context length)
-- added pydantic and Logging librabries
+- Added pydantic and Logging librabries
+- Enabled Logging
 - Thanks to @atgehrhardt, an editor over at https://openwebui.com for the suggestions.
 #### Version 1.0.2
 - Removed Examples as they are not relevant
