@@ -1,3 +1,12 @@
+"""
+Title: Convert to JSON
+Author: BrandXX/UserX
+Version: 1.0.2
+License: MIT
+Description: This tool converts data provided from the chat into JSON format and returns it in a markdown code block.
+GitHub: https://github.com/BrandXX/open-webui/blob/main/tools/convert_to_json/
+"""
+
 import json
 
 
