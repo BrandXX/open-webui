@@ -1,3 +1,4 @@
+
 """
 Title: Convert to JSON
 Author: BrandXX/UserX
@@ -5,7 +6,20 @@ Version: 1.0.3
 License: MIT
 Description: This tool converts data provided from the chat into JSON format and returns it in a markdown code block.
 GitHub: https://github.com/BrandXX/open-webui/blob/main/tools/convert_to_json/
+Notes:
+
+Editor: atgehrhardt
+Suggestions:
+- Remove example usage. Not applicable as this tool should be triggered via the interface.
+    - Done
+        Removed all examples
+- Add Valve or UserValve to set the indent level. 4 is certainly standard hut it would be
+  useful to set that as default and allow users to decide the indent level.
+    - Done
+        Set a JSON_INDENT Valve with a default value of 4. Adjust the indent level in Workspace>Tools>Valves.
+        I will set the UserValves once I get it working.
 """
+
 
 import json
 from pydantic import BaseModel, Field
