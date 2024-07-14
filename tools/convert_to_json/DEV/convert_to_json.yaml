@@ -1,12 +1,15 @@
 """
 title: Convert to JSON
 author: BrandXX/UserX
-version: 1.0.3
+version: 1.0.4 beta
 license: MIT
 description: This tool converts data provided from the chat into JSON format and returns it in a markdown code block.
 GitHub: https://github.com/BrandXX/open-webui/blob/main/tools/convert_to_json/
 Notes:
-- Added in Compact print
+- 1.0.4 beta
+    - Added in COMPACT_PRINT Valve
+        - Toggle this <ON> for one Array per line or <OFF> for Prety Print
+    - Code restructureing
 """
 
 import json
