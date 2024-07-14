@@ -9,8 +9,9 @@ Notes:
 - 1.0.4 beta
     - Added in COMPACT_PRINT Valve
         - Pretty-Printed JSON
+            - Toggle this <OFF> for Pretty-Printed JSON
         - Compact JSON
-            - Toggle this <ON> for one Array per line or <OFF> for Prety Print
+            - Toggle this <ON> for one Array per line
     - Code restructureing
 """
 
