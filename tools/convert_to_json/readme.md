@@ -42,6 +42,14 @@ I will implement UserValve once I get it working.
 #### Version 1.0
 - Initial release.
 
+## Development
+#### Version 1.0.4
+- Improving the ability of the LLM to call the Conver to JSON tool
+- Possible name change with new description
+- Developing Compact JSON valve
+- Developing Single Line JSON valve
+- Developing new prompt to output (Refactoring)
+
 ## Contact
 - Email: N/A
 - GitHub: https://github.com/BrandXX/open-webui
