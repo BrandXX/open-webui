@@ -1,23 +1,27 @@
 """
 title: JSON Tool
 author: BrandXX/UserX
-version: 1.0.4-RC beta
+version: 1.0.4-RC
 license: MIT
 description: Converts data to JSON format and returns it in a markdown code block.
 GitHub: https://github.com/BrandXX/open-webui/blob/main/tools/convert_to_json/
 Notes:
-1.0.4-RC beta
-    - Added in COMPACT_PRINT Valve
-        - Pretty-Printed JSON
-            - Toggle this <OFF> for Pretty-Printed JSON
-        - Compact JSON
-            - Toggle this <ON> for one Array per line
-        - Added SINGLE_LINE Valve
-            - Toggle this <ON> for a single line of JSON
-    - Code refactoring
-    - Restructured and provided a more detailed and reliable instruction set to the LLM
-    - Changed name to JSON Tool
-    - Updated Description
+Version 1.0.4-RC
+- Improved the reliability of the LLM to call the 'Convert to JSON' tool
+  - Contemplating changing the name to 'JSON Tool'
+- Added 'COMPACT_PRINT' Valve
+  - OFF: Pretty-Printed JSON
+    - Toggle 'COMPACT_PRINT' Valve OFF for Pretty-Printed JSON
+  - ON: Compact JSON
+    - Toggle 'COMPACT_PRINT' Valve ON for one Array per line
+- Added 'SINGLE_LINE' Valve
+  - Toggle 'SINGLE_LINE' Valve ON for a single line of JSON
+- Increased the reliability of the JSON output to be in a properly formatted markdown code block
+- Refactored code to increase dependability and reliability
+- Restructured and provided a more detailed and reliable instruction set to the LLM
+- (Undecided Change) Contemplating changing the name from 'Convert to JSON' to 'JSON Tool''
+- Updated Description
+- Updated documentation at https://github.com/BrandXX/open-webui/edit/main/tools/convert_to_json/readme.md
 """
 
 import json
