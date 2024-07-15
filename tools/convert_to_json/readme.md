@@ -125,7 +125,7 @@ You are an expert at calling tools and functions to accomplish the task at hand.
 - <a href="https://openwebui.com/" target="_blank">Open-WebUI Community Site @OpenWebUI</a>
 - <a href="https://docs.openwebui.com/" target="_blank">Open-WebUI Docs @OpenWebUI</a>
 - <a href="https://github.com/open-webui/open-webui" target="_blank">GitHub @OpenWebUI</a>
-
+- <a href="https://discord.gg/5rJgQTnV4s" target="_blank">Discordb @OpenWebUI</a>
 
 ## Disclaimer
 I am not a developer. My primary expertise lies in IT infrastructure, where I have served as a Senior System Administrator and currently as the IT Infrastructure Manager for a government organization. While I am involved in writing tools, functions, and pipelines for Open-WebUI, it is important to understand that software development is not my primary area of expertise.
