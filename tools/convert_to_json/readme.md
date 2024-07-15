@@ -44,20 +44,21 @@ I will implement UserValve once I get it working.
 
 ## Development
 #### Version 1.0.4-RC
-- Improved the reliability of the LLM to call the Convert to JSON tool
-        - Contemplating changing the name to 'JSON Tool'
+- Improved the reliability of the LLM to call the 'Convert to JSON' tool
+  - Contemplating changing the name to 'JSON Tool'
 - Added 'COMPACT_PRINT' Valve
-        - OFF: Pretty-Printed JSON
-                - Toggle 'COMPACT_PRINT' <OFF> for Pretty-Printed JSON
-        - ON: Compact JSON
-                - Toggle 'COMPACT_PRINT' <ON> for one Array per line
+  - OFF: Pretty-Printed JSON
+    - Toggle 'COMPACT_PRINT' Valve OFF for Pretty-Printed JSON
+  - ON: Compact JSON
+    - Toggle 'COMPACT_PRINT' Valve ON for one Array per line
 - Added 'SINGLE_LINE' Valve
-        - Toggle 'SINGLE_LINE' <ON> for a single line of JSON
+  - Toggle 'SINGLE_LINE' Valve ON for a single line of JSON
 - Increased the reliability of the JSON output to be in a properly formatted markdown code block
-- Code refactored
+- Refactored code to increase dependability and reliability
 - Restructured and provided a more detailed and reliable instruction set to the LLM
 - (Undecided Change) Contemplating changing the name from 'Convert to JSON' to 'JSON Tool''
 - Updated Description
+- Updated documentation at https://github.com/BrandXX/open-webui/edit/main/tools/convert_to_json/readme.md
 
 ## Contact
 - Email: N/A
@@ -83,3 +84,6 @@ I will implement UserValve once I get it working.
 ```
 ## OpenWebUI Link
 <a href="https://openwebui.com/t/userx/convert_to_json/" target="_blank">Convert to JSON @OpenWebUI</a>
+
+## Disclaimer
+I am not a developer. My primary expertise lies in IT infrastructure, where I have served as a Senior System Administrator and currently as the IT Infrastructure Manager for a government organization. While I am involved in writing tools, functions, and pipelines for Open-WebUI, it is important to understand that software development is not my primary area of expertise.
