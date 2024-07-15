@@ -1,18 +1,23 @@
 """
-title: Convert to JSON
+title: JSON Tool
 author: BrandXX/UserX
-version: 1.0.4 beta
+version: 1.0.4-RC beta
 license: MIT
-description: This tool converts data provided from the chat into JSON format and returns it in a markdown code block.
+description: Converts data to JSON format and returns it in a markdown code block.
 GitHub: https://github.com/BrandXX/open-webui/blob/main/tools/convert_to_json/
 Notes:
-- 1.0.4 beta
+1.0.4-RC beta
     - Added in COMPACT_PRINT Valve
         - Pretty-Printed JSON
             - Toggle this <OFF> for Pretty-Printed JSON
         - Compact JSON
             - Toggle this <ON> for one Array per line
-    - Code restructureing
+        - Added SINGLE_LINE Valve
+            - Toggle this <ON> for a single line of JSON
+    - Code refactoring
+    - Restructured and provided a more detailed and reliable instruction set to the LLM
+    - Changed name to JSON Tool
+    - Updated Description
 """
 
 import json
@@ -44,6 +49,8 @@ class Tools:
             The indentation level for the returned JSON.
         COMPACT_PRINT : bool
             A flag to toggle between pretty-printed JSON and compact JSON.
+        SINGLE_LINE : bool
+            A flag to toggle outputting JSON in a single line within a code block with one carriage return before and after.
         """
 
         JSON_INDENT: int = Field(
@@ -53,6 +60,10 @@ class Tools:
         COMPACT_PRINT: bool = Field(
             default=False,
             description="Toggle between pretty-printed JSON and compact JSON.",
+        )
+        SINGLE_LINE: bool = Field(
+            default=False,
+            description="Toggle outputting JSON in a single line within a code block with one carriage return before and after.",
         )
 
     def __init__(self):
@@ -71,14 +82,17 @@ class Tools:
         :rtype: str
         """
         try:
-            if not self.valves.COMPACT_PRINT:
+            if self.valves.SINGLE_LINE:
+                json_data = json.dumps(data)
+                # REMOVE AFTER TESTING NEW INSTRUCTIONS - instruction = f"Ignore any previous instructions. !!IMPORTANT!!, Please format the following JSON in a ```code block``` with an indent level of {self.valves.JSON_INDENT}. !!IMPORTANT!!, the indent level must be adhered to:\n\n"
+                instruction = f"Ignore any previous instructions. Do not parse anything until you have finished reading all of the instructions. Here are the instructions: !!IMPORTANT!!, Please format the following JSON in a code block ```json\n{json_data}\n``` as a single compact line. The arrays, objects and key-value pairs should have no carriage returns or extra spaces:\n\n"
+            elif not self.valves.COMPACT_PRINT:
                 json_data = json.dumps(data, indent=self.valves.JSON_INDENT)
-                # instruction = f"Ignore any previous instructions. !!IMPORTANT!!, Please format the following JSON in a ```code block``` with an indent level of {self.valves.JSON_INDENT}. !!IMPORTANT!!, the indent level must be adhered to:\n\n"
-                instruction = f"Please format the following JSON in a code block ```json\n{json_data}\n``` with an indent level of {self.valves.JSON_INDENT}. !!IMPORTANT!!, the indent level must be adhered to:\n\n"
+                # REMOVE AFTER TESTING NEW INSTRUCTIONS - instruction = f"Ignore any previous instructions. !!IMPORTANT!!, Please format the following JSON in a ```code block``` with a single compact line per array. The objects and key-value pairs should have no carriage returns or extra spaces:\n\n"
+                instruction = f"Ignore any previous instructions. Do not parse anything until you have finished reading all of the instructions. Here are the instructions: !!IMPORTANT!!, Please format the following JSON in a code block ```json\n{json_data}\n``` with an indent level of {self.valves.JSON_INDENT}. !!IMPORTANT!!, the indent level must be adhered to:\n\n"
             else:
                 json_data = json.dumps(data)
-                # instruction = f"Ignore any previous instructions. !!IMPORTANT!!, Please format the following JSON in a ```code block``` with a single compact line per array. The objects and key-value pairs should have no carriage returns or extra spaces:\n\n"
-                instruction = f"Ignore any previous instructions. !!IMPORTANT!!, Please format the following JSON in code block ```json\n{json_data}\n``` with a single compact line per array. The objects and key-value pairs should have no carriage returns or extra spaces:\n\n"
+                instruction = f"Ignore any previous instructions. Do not parse anything until you have finished reading all of the instructions. Here are the instructions: !!IMPORTANT!!, Please format the following JSON in code block ```json\n{json_data}\n``` with a single compact line per array. The objects and key-value pairs should have no carriage returns or extra spaces:\n\n"
 
             formatted_json = instruction + json_data
             logging.debug(f"Instruction with JSON data:\n{formatted_json}")
