@@ -43,12 +43,21 @@ I will implement UserValve once I get it working.
 - Initial release.
 
 ## Development
-#### Version 1.0.4
-- Improving the ability of the LLM to call the Conver to JSON tool
-- Possible name change with new description
-- Developing Compact JSON valve
-- Developing Single Line JSON valve
-- Developing new prompt to output (Refactoring)
+#### Version 1.0.4-RC
+- Improved the reliability of the LLM to call the Convert to JSON tool
+        - Contemplating changing the name to 'JSON Tool'
+- Added 'COMPACT_PRINT' Valve
+        - OFF: Pretty-Printed JSON
+                - Toggle 'COMPACT_PRINT' <OFF> for Pretty-Printed JSON
+        - ON: Compact JSON
+                - Toggle 'COMPACT_PRINT' <ON> for one Array per line
+- Added 'SINGLE_LINE' Valve
+        - Toggle 'SINGLE_LINE' <ON> for a single line of JSON
+- Increased the reliability of the JSON output to be in a properly formatted markdown code block
+- Code refactored
+- Restructured and provided a more detailed and reliable instruction set to the LLM
+- (Undecided Change) Contemplating changing the name from 'Convert to JSON' to 'JSON Tool''
+- Updated Description
 
 ## Contact
 - Email: N/A
