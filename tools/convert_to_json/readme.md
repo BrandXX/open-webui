@@ -17,14 +17,12 @@ This tool converts data provided from the chat into JSON format and returns it i
 - dolphin-mistral:7b-v2.8-fp16
 
 ## Usage
-Call the function `convert_to_json(data)` with your data as an argument.  
-Example:
-```python
-data = {"name": "John", "age": 30}
-print(convert_to_json(data))
-```
-Set the indent level in Workspace>Tools>Valves (Gear icon next to the tool)
-I will implement UserValve once I get it working.
+#### Import the Latest Stable Release
+https://openwebui.com/t/userx/convert_to_json/
+- Toogle `Convert to JSON` tool on within the chat window (+) menu.  
+- Set the indent level, and JSON format in Workspace>Tools>Valves
+  - (Gear icon next to the tool)
+- There are currrently no UserValves. I will implement UserValve once I get it working.
 
 ## Changelog
 #### Version 1.0.3
