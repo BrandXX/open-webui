@@ -97,8 +97,7 @@ You are an expert at calling tools and functions to accomplish the task at hand.
 - Updated documentation at https://github.com/BrandXX/open-webui/edit/main/tools/convert_to_json/readme.md
 
 ## Contact
-- Email: N/A
-- GitHub: https://github.com/BrandXX/open-webui
+For any questions or suggestions, feel free to reach out via GitHub `Issues` or via Open-WebUI's Discord `@userx`.
 
 ## Dependencies
 - None (uses Python standard library)
