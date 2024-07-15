@@ -56,7 +56,6 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 For any questions or suggestions, feel free to reach out via GitHub `Issues` or via Open-WebUI's Discord `@userx`.
 
 ## OpenWebUI Links
-- <a href="https://openwebui.com/t/userx/convert_to_json/" target="_blank">Convert to JSON @OpenWebUI</a>
 - <a href="https://openwebui.com/" target="_blank">Open-WebUI Community Site @OpenWebUI</a>
 - <a href="https://docs.openwebui.com/" target="_blank">Open-WebUI Docs @OpenWebUI</a>
 - <a href="https://github.com/open-webui/open-webui" target="_blank">GitHub @OpenWebUI</a>
