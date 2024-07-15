@@ -21,11 +21,11 @@ This tool converts data provided from the chat into JSON format and returns it i
 https://openwebui.com/t/userx/convert_to_json/
 
 #### Latest Dev
-tools/convert_to_json/1.0.3/convert_to_json.yaml
+[tools/convert_to_json/1.0.3/convert_to_json.yaml](https://github.com/BrandXX/open-webui/tree/main/tools/convert_to_json/DEV)
 
 - Toogle `Convert to JSON` tool on within the chat window (+) menu.  
 - Set the indent level, and JSON format in Workspace>Tools>Valves
-  - (Gear icon next to the tool)
+  - (Gear icon on teh right side of the tool)
 - There are currrently no UserValves. I will implement UserValve once I get it working.
 
 ## Changelog
