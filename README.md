@@ -1,4 +1,4 @@
-## Open-WebUI Functions, Tools, and Pipelines
+## Open-WebUI Functions, Tools, Pipelines, and Instructions
 ------------------------------
 Welcome to the repository for storing functions, tools, and pipelines for Open-WebUI. This repository is dedicated to enhancing the capabilities of Open-WebUI by providing a collection of useful scripts and tools.
 **COMING SOON**, instructions and setup.
