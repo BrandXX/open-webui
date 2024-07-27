@@ -114,3 +114,4 @@ class Tools:
             error_message = f"Error converting data to JSON: {str(e)}"
             logging.error(error_message)
             return error_message
+
