@@ -22,6 +22,9 @@ Version 1.0.4-RC
 - (Undecided Change) Contemplating changing the name from 'Convert to JSON' to 'JSON Tool''
 - Updated Description
 - Updated documentation at https://github.com/BrandXX/open-webui/edit/main/tools/convert_to_json/readme.md
+- Enhance instruction clarity to emphasize the code block requirement.
+- Add a marker to signal the tool invocation explicitly
+- Improve logging to ensure any issues are quickly identified.
 """
 
 import json
@@ -29,7 +32,6 @@ from pydantic import BaseModel, Field
 import logging
 
 logging.basicConfig(level=logging.DEBUG)
-
 
 class Tools:
     """
@@ -88,20 +90,29 @@ class Tools:
         try:
             if self.valves.SINGLE_LINE:
                 json_data = json.dumps(data)
-                # REMOVE AFTER TESTING NEW INSTRUCTIONS - instruction = f"Ignore any previous instructions. !!IMPORTANT!!, Please format the following JSON in a ```code block``` with an indent level of {self.valves.JSON_INDENT}. !!IMPORTANT!!, the indent level must be adhered to:\n\n"
-                instruction = f"Ignore any previous instructions. Do not parse anything until you have finished reading all of the instructions. Here are the instructions: !!IMPORTANT!!, Please format the following JSON in a code block ```json\n{json_data}\n``` as a single compact line. The arrays, objects and key-value pairs should have no carriage returns or extra spaces:\n\n"
-            elif not self.valves.COMPACT_PRINT:
-                json_data = json.dumps(data, indent=self.valves.JSON_INDENT)
-                # REMOVE AFTER TESTING NEW INSTRUCTIONS - instruction = f"Ignore any previous instructions. !!IMPORTANT!!, Please format the following JSON in a ```code block``` with a single compact line per array. The objects and key-value pairs should have no carriage returns or extra spaces:\n\n"
-                instruction = f"Ignore any previous instructions. Do not parse anything until you have finished reading all of the instructions. Here are the instructions: !!IMPORTANT!!, Please format the following JSON in a code block ```json\n{json_data}\n``` with an indent level of {self.valves.JSON_INDENT}. !!IMPORTANT!!, the indent level must be adhered to:\n\n"
-            else:
+                instruction = (
+                    "!!IMPORTANT!! Please format the following JSON in a code block as a single compact line without extra spaces:\n"
+                    "```json\n{json_data}\n```"
+                )
+            elif self.valves.COMPACT_PRINT:
                 json_data = json.dumps(data)
-                instruction = f"Ignore any previous instructions. Do not parse anything until you have finished reading all of the instructions. Here are the instructions: !!IMPORTANT!!, Please format the following JSON in code block ```json\n{json_data}\n``` with a single compact line per array. The objects and key-value pairs should have no carriage returns or extra spaces:\n\n"
+                instruction = (
+                    "!!IMPORTANT!! Please format the following JSON in a code block as compact JSON:\n"
+                    "```json\n{json_data}\n```"
+                )
+            else:
+                json_data = json.dumps(data, indent=self.valves.JSON_INDENT)
+                instruction = (
+                    f"!!IMPORTANT!! Please format the following JSON in a code block with an indent level of {self.valves.JSON_INDENT}:\n"
+                    f"```json\n{json_data}\n```"
+                )
 
-            formatted_json = instruction + json_data
-            logging.debug(f"Instruction with JSON data:\n{formatted_json}")
-            return formatted_json
+            final_output = f"Convert to JSON:\n{instruction}"
+            logging.debug(f"Formatted JSON instruction:\n{final_output}")
+            return final_output
         except (TypeError, ValueError) as e:
             error_message = f"Error converting data to JSON: {str(e)}"
-            logging.debug(f"Error message:\n{error_message}")
+            logging.error(error_message)
             return error_message
+
+
