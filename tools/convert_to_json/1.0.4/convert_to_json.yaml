@@ -6,7 +6,7 @@ license: MIT
 description: Converts data to JSON format and returns it in a markdown code block.
 GitHub: https://github.com/BrandXX/open-webui/blob/main/tools/convert_to_json/
 Notes:
-Version 1.0.4-RC
+Version 1.0.4
 - Improved the reliability of the LLM to call the 'Convert to JSON' tool
   - Contemplating changing the name to 'JSON Tool'
 - Added 'COMPACT_PRINT' Valve
