@@ -1,7 +1,7 @@
 """
 title: Convert to JSON
 author: BrandXX/UserX
-version: 1.0.4-RC
+version: 1.0.4
 license: MIT
 description: Converts data to JSON format and returns it in a markdown code block.
 GitHub: https://github.com/BrandXX/open-webui/blob/main/tools/convert_to_json/
