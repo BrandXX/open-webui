@@ -23,7 +23,7 @@ Version 1.0.4
 - Updated Description
 - Updated documentation at https://github.com/BrandXX/open-webui/edit/main/tools/convert_to_json/readme.md
 Issues:
-- I noticed some reliabiloity issues with Open-WebUI version 3.22 and Ollama version 3.11. Im currently working on a soultion.
+- I noticed some reliability issues with Open-WebUI version 3.22 and Ollama version 3.11. Im currently working on a soultion.
     - Possible soultion is to add a system prompt of = "Ignore all previous instruction. Use the Convert to Jason tool."
 """
 
