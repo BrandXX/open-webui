@@ -16,6 +16,8 @@ This repository contains:
   - Caddy
   - OpenedAI Speech
   - ComfyUI
+  - Crawl4AI
+  - n8n
   - TailScale
   - Docker Run and Compose
   - WSL2
