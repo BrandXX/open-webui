@@ -24,13 +24,13 @@ from typing import Optional, List
 class Action:
     class Valves(BaseModel):
         OLLAMA_ENDPOINT: str = Field(
-            default="https://aistack.tail88e263.ts.net:3006",
+            default="http://host.docker.internal:11434",
             description="URL to the Ollama API endpoint",
             advanced=False,
         )
         TIMEOUT_SECONDS: int = Field(
             default=3,
-            description="Timeout in seconds for API requests (hard set to 3 seconds)",
+            description="Timeout in seconds for API requests (set to 3 seconds)",
             advanced=False,
         )
         pass
@@ -42,7 +42,7 @@ class Action:
         """
         Retrieves a list of loaded models via the configured REST API endpoint.
         It calls {OLLAMA_ENDPOINT}/api/ps and expects a JSON response.
-        A hard-set timeout of 3 seconds is applied. If an error occurs,
+        A timeout of 3 seconds is applied. If an error occurs,
         a delay is enforced so the error message isn’t instantaneous.
         """
         start_time = time.time()
@@ -86,7 +86,7 @@ class Action:
         """
         Unloads the given model via REST API by sending a POST request.
         It calls {OLLAMA_ENDPOINT}/api/generate with the payload {"model": model, "keep_alive": 0}.
-        A hard-set timeout of 3 seconds is applied.
+        A timeout of 3 seconds is applied.
         """
         try:
             payload = {"model": model, "keep_alive": 0}
@@ -163,8 +163,8 @@ class Action:
         models = self.get_loaded_models()
         if not models:
             error_msg = (
-                "No models were retrieved automatically. This might be due to a timeout "
-                "or an endpoint URL misconfiguration. Please verify the endpoint configuration."
+                "No models were retrieved. This might be due to a timeout, nothing loaded"
+                ", or an endpoint URL misconfiguration."
             )
             if __event_emitter__:
                 await __event_emitter__(
