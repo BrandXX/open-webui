@@ -1,3 +1,16 @@
+"""
+title: Crawl4AI Web Scrape
+description: Web scraper for Open-WebUI using Crawl4ai, with plenty of valves to configure.
+author: BrandXX/UserX
+author_url: https://github.com/BrandXX/open-webui/
+funding_url: https://github.com/BrandXX/open-webui/
+repo_url: https://github.com/BrandXX/open-webui/edit/main/tools/crawl4ai_web_scrape/crawl4ai_web_scrape.py
+version: 1.0.0
+required_open_webui_version: 0.3.9
+Notes:
+Thanks to 'focuses' over at the Open-WebUI community for providing the inital code @ https://openwebui.com/t/focuses/crawl4ai_web_scrape
+"""
+
 import aiohttp
 import asyncio
 import re
