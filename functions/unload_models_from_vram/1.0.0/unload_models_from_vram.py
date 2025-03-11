@@ -7,7 +7,7 @@ description: |
 author: BrandXX/UserX
 author_url: https://github.com/BrandXX/open-webui/
 funding_url: https://github.com/BrandXX/open-webui/
-repo_url: https://github.com/BrandXX/open-webui/blob/main/functions/unload_models_from_vram/.07/unload_models_from_vram.yaml
+repo_url: https://github.com/BrandXX/open-webui/blob/main/functions/unload_models_from_vram/1.0.0/unload_models_from_vram.py
 version: 1.0.0
 required_open_webui_version: 0.3.9
 Notes:
