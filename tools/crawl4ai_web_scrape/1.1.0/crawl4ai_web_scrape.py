@@ -4,7 +4,7 @@ description: Robust and configurable web scraping tool using Crawl4AI server wit
 author: BrandXX/UserX
 author_url: https://github.com/BrandXX/open-webui/
 funding_url: https://github.com/BrandXX/open-webui/
-repo_url: https://github.com/BrandXX/open-webui/edit/main/tools/crawl4ai_web_scrape/crawl4ai_web_scrape.py
+repo_url: https://github.com/BrandXX/open-webui/edit/main/tools/crawl4ai_web_scrape/
 version: 1.1.0
 required_open_webui_version: 0.3.9
 Notes:
