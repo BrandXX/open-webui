@@ -110,6 +110,27 @@ This tool performs the following:
 3. **Trigger Tool:**  
    Provide URL and initiate scraping.
 
+### Formatting Requests in Open-WebUI Chat:
+
+Your requests must follow one of these formats:
+
+- **Only the URL:**
+```
+https://example.com/article
+```
+
+- **URL with Instructions (to LLM):**
+```
+https://example.com/article
+Return the content as a bulleted list. Include only headlines and dates.
+```
+
+- **Detailed Instructions (to LLM):**
+```
+https://example.com/article
+Return the content as a table. Include columns for Date, Model, Manufacturer, and Price.
+```
+
 4. **Monitor Progress:**  
    Watch real-time emitter updates.
 
@@ -159,3 +180,5 @@ Thanks to the Open-WebUI community, especially **focuses**, for initial inspirat
 ---
 
 Happy scraping, and may your data be ever abundant! 😄
+
+
