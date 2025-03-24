@@ -1,6 +1,6 @@
 # Unload Models from VRAM
 
-Welcome to the *Unload Models from VRAM* function for Open-WebUI! This neat little tool lets you effortlessly unload all models from your VRAM using Ollama's REST API. If your VRAM is feeling a bit too crowded, this is your chance to give it a breather—just like cleaning out your digital closet. 😉
+Welcome to the *Unload Models from VRAM* function for Open-WebUI! This streamlined tool effortlessly unloads all models from your VRAM using Ollama's REST API. If your VRAM feels a bit crowded, here's your chance to clear it out with a simple click—think of it as spring cleaning for your digital workspace. 😉
 
 ---
 
@@ -8,10 +8,10 @@ Welcome to the *Unload Models from VRAM* function for Open-WebUI! This neat litt
 
 This function performs the following:
 - **Retrieves Loaded Models:** Fetches a list of models currently loaded in VRAM by calling the `/api/ps` endpoint.
-- **Unloads Each Model:** Sends a POST request to `/api/generate` for every retrieved model to unload it.
-- **User Confirmation:** Prompts for confirmation before proceeding—because we know you're cautious about losing your hard work.
+- **Unloads Each Model:** Sends a POST request to `/api/generate` for each retrieved model to unload it.
+- **One-click Action:** Unloads instantly upon clicking—no confirmation needed, for ultimate convenience.
 - **Configurable Settings:** The endpoint URL and timeout are configurable with sensible defaults.
-- **Robust Error Handling:** Provides clear, concise emitter messages (and detailed logs for developers) when issues occur, such as misconfigured endpoints, timeouts, or connection errors.
+- **Robust Error Handling:** Provides clear emitter messages and detailed logs for troubleshooting endpoint issues, timeouts, or connection errors.
 
 ---
 
@@ -19,9 +19,9 @@ This function performs the following:
 
 - **REST API Integration:** Seamlessly interacts with Ollama's API.
 - **Configurable Endpoint & Timeout:** Default endpoint is `http://host.docker.internal:11434` and timeout is 3 seconds.
-- **Graceful Error Handling & Emitter Feedback:** Clear, one-line messages guide you when issues occur.
-- **Debug Logging:** Detailed logs help diagnose problems without overwhelming the end user.
-- **Asynchronous Operation:** Uses async functions for smooth integration within chat-based interactions.
+- **Graceful Error Handling & Emitter Feedback:** Clear, concise messages guide you if issues occur.
+- **Debug Logging:** Detailed logs for diagnosing problems without overwhelming the user.
+- **Asynchronous Operation:** Smoothly integrates within chat-based interactions.
 
 ---
 
@@ -33,10 +33,10 @@ This function performs the following:
 
 - **Timeout:**  
   Default: `3` seconds  
-  *(Set to a higher value if your network is on the slower side.)*
+  *(Adjust higher if needed.)*
 
 - **Version:**  
-  `1.0.0`
+  `1.0.1`
 
 - **Required Open-WebUI Version:**  
   `0.3.9`
@@ -45,78 +45,76 @@ This function performs the following:
 
 ## How It Works
 
-1. **User Confirmation:**  
-   When you trigger the function (by clicking the 'Unload Models from VRAM' icon near the 'Regenerate' icon), you'll be prompted with a message. Type `yes` to confirm you want to unload all loaded models.  
-   *Tip: Type "yes" like you really mean it!*
+1. **Trigger Action:**  
+   Click the 'Unload Models from VRAM' button near the 'Regenerate' icon to immediately initiate unloading.
 
 2. **Retrieving Models:**  
-   The function makes a GET request to `{OLLAMA_ENDPOINT}/api/ps` to fetch the list of loaded models. If nothing is found or an error occurs, it stops and displays a clear error message.
+   Makes a GET request to `{OLLAMA_ENDPOINT}/api/ps` to fetch loaded models. If none are found or an error occurs, a clear message is displayed.
 
 3. **Unloading Process:**  
-   For each retrieved model, a POST request is sent to `{OLLAMA_ENDPOINT}/api/generate` with the payload `{ "model": model, "keep_alive": 0 }` to unload that model.
+   Sends a POST request to `{OLLAMA_ENDPOINT}/api/generate` with payload `{ "model": model, "keep_alive": 0 }` for each retrieved model to unload them.
 
 4. **Error Handling:**  
-   If issues occur (such as a misconfigured endpoint, timeout, or connection error), the function emits a concise error message—like:  
-   > "Endpoint error: The URL '...' appears to be misconfigured."  
-   This guides you to quickly resolve the issue, while detailed logs are kept for troubleshooting.
+   Issues concise error messages for misconfigured endpoints, timeouts, or connection issues. Detailed logs are available for troubleshooting.
 
 5. **Feedback:**  
-   Progress updates and final results are communicated back to you, so you’re always in the loop.
+   Progress updates and final results keep you informed every step of the way.
 
 ---
 
 ## Usage Instructions
 
-1. **Trigger the Function:**  
-   Click the 'Unload Models from VRAM' icon located next to the 'Regenerate' icon at the bottom of your chat interface.
+1. **Click and Go:**  
+   Simply click the 'Unload Models from VRAM' icon next to the 'Regenerate' button at the bottom of your chat interface.
 
-2. **Confirm Action:**  
-   When prompted, type `yes` to confirm you want to unload the models.
-
-3. **Watch the Magic:**  
-   The function retrieves the list of loaded models and proceeds to unload them one by one. Sit back, relax, and enjoy the clean VRAM!
+2. **Sit Back and Relax:**  
+   Models unload immediately. No confirmation is required—watch your VRAM clear instantly!
 
 ---
 
 ## Code Overview
 
-The function is implemented in Python and leverages:
-- **`requests`** for HTTP communications.
-- **`pydantic`** for configuration management.
-- **`asyncio`** for handling asynchronous operations and user interactions via event callbacks.
+The function is written in Python, utilizing:
+- **`requests`** for HTTP communication.
+- **`pydantic`** for managing configuration.
+- **`asyncio`** for asynchronous operations and event-driven interactions.
 
-The source code is neatly organized to ensure that each step—from model retrieval to unloading—is handled efficiently, with clear debug logging for easy troubleshooting.
+Each step, from retrieving to unloading models, is handled efficiently and clearly logged for easy troubleshooting.
 
 ---
 
 ## Changelog
 
+- **Version 1.0.1**  
+  - Removed confirmation prompt for streamlined operation.
+  - Maintained robust error handling and user feedback.
+
 - **Version 1.0.0**  
   - Initial release.
-  - Robust error handling with clear emitter feedback.
-  - Detailed logging for troubleshooting.
-  - Asynchronous operation for seamless integration in chat-based interfaces.
+  - Robust error handling with emitter feedback.
+  - Detailed logging.
+  - Asynchronous design for chat integration.
 
 ---
 
-## Contributions 
-Contributions are more than welcome! If you have ideas, bug fixes, or improvements, feel free to fork the repository and submit a pull request. For more details, check out the [GitHub repository](https://github.com/BrandXX/open-webui/).  
+## Contributions
 
-- Note: I normally run solo so I'm new to contributors. If you’re interested in contributing, please bear with me while I work to better understand the process.
+Contributions are warmly welcomed! For improvements, bug fixes, or feature requests, please visit the [GitHub repository](https://github.com/BrandXX/open-webui/) to submit pull requests.
 
+*(Note: New to collaborating? No worries—let's learn and grow together!)*
 
 ---
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for further details.
+Licensed under the MIT License. See the LICENSE file for details.
 
 ---
 
 ## Acknowledgments
 
-A big shout-out to the Open-WebUI community and all contributors who continuously improve the tool. Thanks for making this project as awesome as it is!
+A special thank-you to the Open-WebUI community and contributors for your continuous enhancements. You're awesome!
 
 ---
 
-Happy unloading, and may your VRAM be ever light! 😄
+Happy unloading, and enjoy your tidy VRAM! 😄🚀
