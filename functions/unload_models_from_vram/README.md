@@ -10,7 +10,7 @@ This function performs the following:
 - **Retrieves Loaded Models:** Fetches a list of models currently loaded in VRAM by calling the `/api/ps` endpoint.
 - **Unloads Each Model:** Sends a POST request to `/api/generate` for each retrieved model to unload it.
 - **One-click Action:** Unloads instantly upon clicking—no confirmation needed, for ultimate convenience.
-- **Configurable Settings:** The endpoint URL and timeout are configurable with sensible defaults.
+- **Configurable Settings:** The endpoint URL, timeout, and logging level are configurable with sensible defaults.
 - **Robust Error Handling:** Provides clear emitter messages and detailed logs for troubleshooting endpoint issues, timeouts, or connection errors.
 
 ---
@@ -19,6 +19,7 @@ This function performs the following:
 
 - **REST API Integration:** Seamlessly interacts with Ollama's API.
 - **Configurable Endpoint & Timeout:** Default endpoint is `http://host.docker.internal:11434` and timeout is 3 seconds.
+- **Adjustable Logging Level:** Choose from `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL` to control verbosity.
 - **Graceful Error Handling & Emitter Feedback:** Clear, concise messages guide you if issues occur.
 - **Debug Logging:** Detailed logs for diagnosing problems without overwhelming the user.
 - **Asynchronous Operation:** Smoothly integrates within chat-based interactions.
@@ -34,6 +35,10 @@ This function performs the following:
 - **Timeout:**  
   Default: `3` seconds  
   *(Adjust higher if needed.)*
+
+- **Logging Level:**  
+  Default: `INFO`  
+  *(Choose from `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL`.)*
 
 - **Version:**  
   `1.0.1`
@@ -72,6 +77,19 @@ This function performs the following:
 
 ---
 
+## Checking Logs
+
+Logs can be checked directly from the console or Docker logs:
+
+- **Console Logs:** Monitor the terminal window or Docker logs running Open-WebUI.
+  ```bash
+  docker logs <container_name_or_id>
+  ```
+
+Set your logging level to `DEBUG` for detailed troubleshooting or use `INFO` for general usage.
+
+---
+
 ## Code Overview
 
 The function is written in Python, utilizing:
@@ -85,9 +103,9 @@ Each step, from retrieving to unloading models, is handled efficiently and clear
 
 ## Changelog
 
-- **Version 1.0.1**  
+- **Version 1.0.1**
   - Removed confirmation prompt for streamlined operation.
-  - Maintained robust error handling and user feedback.
+  - Added configurable logging level valve with dropdown options.  
 
 - **Version 1.0.0**  
   - Initial release.
