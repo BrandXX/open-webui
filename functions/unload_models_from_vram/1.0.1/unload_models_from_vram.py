@@ -3,6 +3,7 @@ title: Unload Models from VRAM
 description: Unloads all models from VRAM using Ollama's REST API.
     - The endpoint URL is configurable (default: http://host.docker.internal:11434 )
     - The timeout is configurable. (default: 3-secs)
+    - The logging level is configurable via a valve dropdown list
 author: BrandXX/UserX
 author_url: https://github.com/BrandXX/open-webui/
 funding_url: https://github.com/BrandXX/open-webui/
