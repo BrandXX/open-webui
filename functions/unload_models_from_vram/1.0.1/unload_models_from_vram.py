@@ -7,7 +7,7 @@ author: BrandXX/UserX
 author_url: https://github.com/BrandXX/open-webui/
 funding_url: https://github.com/BrandXX/open-webui/
 repo_url: https://github.com/BrandXX/open-webui/blob/main/functions/unload_models_from_vram/1.0.0/unload_models_from_vram.py
-version: 1.0.1
+version: 1.0.0
 required_open_webui_version: 0.3.9
 Notes:
 To unload the models from VRAM, please click the 'Unload Models from VRAM' icon next to the 'Regenerate' icon at the bottom of the chat.
@@ -36,9 +36,16 @@ class Action:
             description="Timeout in seconds for API requests (set to 3 seconds)",
             advanced=False,
         )
+        LOGGING_LEVEL: str = Field(
+            default="INFO",
+            description="Set the logging verbosity level.",
+            advanced=True,
+            enum=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+        )
 
     def __init__(self):
         self.valves = self.Valves()
+        logger.setLevel(getattr(logging, self.valves.LOGGING_LEVEL))
 
     def get_loaded_models(self) -> Tuple[List[str], Optional[str], str]:
         start_time = time.time()
