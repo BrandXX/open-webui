@@ -30,7 +30,7 @@ The SmolAgents Deep Research Pipeline provides an advanced, easy-to-configure en
 ---
 
 ## Installation
-### Docker Containers (Currently in Development, invite only)
+### Docker Containers (Currently in Development)
 Pull the container using Docker:
 
 ```sh
