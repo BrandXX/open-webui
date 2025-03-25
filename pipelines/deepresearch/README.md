@@ -1,4 +1,4 @@
-# SmolAgents Deep Research Pipeline
+# SmolAgents Deep Research Pipeline (Currently in Development)
 
 **A pipeline designed to initiate and manage comprehensive research tasks using Open-WebUI integrated with SmolAgents.**
 
@@ -30,7 +30,7 @@ The SmolAgents Deep Research Pipeline provides an advanced, easy-to-configure en
 ---
 
 ## Installation
-### Docker Containers
+### Docker Containers (Currently in Development, invite only)
 Pull the container using Docker:
 
 ```sh
