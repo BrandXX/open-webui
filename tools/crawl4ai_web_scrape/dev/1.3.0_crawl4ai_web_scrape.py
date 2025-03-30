@@ -79,7 +79,10 @@ class Crawler:
 
                     if status["status"] == "completed":
                         if hook:
-                            await hook(Event.FINISHED, {"task_id": task_id, "status": status["status"]})
+                            await hook(
+                                Event.FINISHED,
+                                {"task_id": task_id, "status": status["status"]},
+                            )
                         return status
 
                     await asyncio.sleep(self.poll_interval)
@@ -289,8 +292,8 @@ class Tools:
 
     async def call_ollama(self, system_prompt: str, user_query: str) -> str:
         """
-        Force the 'system' instructions so the model sees a higher-level command to
-        ONLY return queries. The 'prompt' can be minimal or just the user topic.
+        Put instructions in the system prompt so the model remains broad
+        and avoids domain-specific knowledge. The user prompt is minimal.
         """
         if not self.ollama_model:
             return ""
@@ -320,18 +323,21 @@ class Tools:
         if not has_model:
             return [user_query, f"{user_query} info", f"{user_query} research"]
 
-        # Put strict instructions in the "system" field
+        # System prompt to keep expansions broad and general:
         system_instructions = (
-            "You are a search-query generation engine. "
-            "Your job is to produce ONLY short search queries separated by semicolons. "
-            "No extra conversation, disclaimers, or commentary. "
-            "Generate exactly 3 to 5 queries. Example: 'DGX Spark specs; DGX Spark price; DGX Spark reviews'."
+            "You have no external knowledge. You are a broad search-query generator. "
+            "The user gave a topic, but you do NOT know any specifics. "
+            "You only produce 3 to 5 short, generic queries separated by semicolons, with no disclaimers. "
+            "Focus on synonyms, broader categories, or sub-topics related to the user's request. "
+            "Avoid referencing any unmentioned or detailed events or data. "
+            "Example: If user says 'Elon Musk latest political news', respond with queries like: "
+            "'Elon Musk political overview; Elon Musk public statements; Elon Musk controversies; Elon Musk policy timeline'."
         )
 
-        # The user_query here is minimal. We pass it as the "prompt."
+        # The user_query is minimal
         raw_response = await self.call_ollama(system_instructions, user_query)
 
-        # In case disclaimers appear, we do a semicolon split. 
+        # In case disclaimers appear, we parse out only semicolon-delimited strings
         parts = [r.strip() for r in raw_response.split(";") if r.strip()]
         if not parts:
             return [user_query]  # fallback
@@ -389,22 +395,28 @@ class Tools:
     ) -> str:
         emitter = EventEmitter(__event_emitter__)
         try:
-            await emitter.progress_update(f"🔄 Generating search queries from: {user_query}")
+            await emitter.progress_update(
+                f"🔄 Generating search queries from: {user_query}"
+            )
 
             if __event_emitter__:
-                await __event_emitter__({
-                    "type": "event",
-                    "data": {
-                        "event": Event.QUERY_GENERATION.value,
-                        "description": f"Generating queries from user input: {user_query}",
-                    },
-                })
+                await __event_emitter__(
+                    {
+                        "type": "event",
+                        "data": {
+                            "event": Event.QUERY_GENERATION.value,
+                            "description": f"Generating queries from user input: {user_query}",
+                        },
+                    }
+                )
 
             expanded_queries = await self.generate_queries(user_query)
 
             all_urls = []
             for idx, q in enumerate(expanded_queries, start=1):
-                await emitter.progress_update(f"🔍 Searching SearXNG for query #{idx}: {q}")
+                await emitter.progress_update(
+                    f"🔍 Searching SearXNG for query #{idx}: {q}"
+                )
                 new_urls = await self.search_searxng(q)
                 all_urls.extend(new_urls)
 
@@ -423,7 +435,8 @@ class Tools:
 
                 if self.valves.SKIP_LOW_QUALITY:
                     ranked_urls = [
-                        (url, rank) for url, rank in ranked_urls
+                        (url, rank)
+                        for url, rank in ranked_urls
                         if rank >= self.valves.MIN_RANK_THRESHOLD
                     ]
 
@@ -438,9 +451,13 @@ class Tools:
 
             async def scrape(url, rank):
                 async with semaphore:
-                    rank_display = f"[Quality: {rank:.2f}]" if self.valves.ENABLE_RANKING else ""
+                    rank_display = (
+                        f"[Quality: {rank:.2f}]" if self.valves.ENABLE_RANKING else ""
+                    )
                     await emitter.progress_update(f"🌐 Scraping: {url} {rank_display}")
-                    markdown = await self.web_scrape(url, __event_emitter__=__event_emitter__, __user__=__user__)
+                    markdown = await self.web_scrape(
+                        url, __event_emitter__=__event_emitter__, __user__=__user__
+                    )
 
                     if self.valves.INCLUDE_SOURCES:
                         domain = urlparse(url).netloc
@@ -449,7 +466,9 @@ class Tools:
                             foot = f"\n\n*Source: [{domain}]({url})*"
                             return f"---\n\n{hdr}{markdown.strip()}{foot}"
                         elif self.valves.CITATION_STYLE == "footnote":
-                            return f"---\n\n{hdr}{markdown.strip()}\n\n[^{domain}]: {url}"
+                            return (
+                                f"---\n\n{hdr}{markdown.strip()}\n\n[^{domain}]: {url}"
+                            )
                         else:
                             return f"---\n\n{hdr}{markdown.strip()}"
                     else:
@@ -488,11 +507,17 @@ class Tools:
             if event == Event.START:
                 await emitter.progress_update(f"✅ Started scraping {data['url']}")
             elif event == Event.WAITING:
-                await emitter.progress_update(f"⏳ Waiting for results... (Task ID: {data['task_id']})")
+                await emitter.progress_update(
+                    f"⏳ Waiting for results... (Task ID: {data['task_id']})"
+                )
             elif event == Event.FINISHED:
-                await emitter.success_update(f"🎉 Scraping complete! (Task ID: {data['task_id']})")
+                await emitter.success_update(
+                    f"🎉 Scraping complete! (Task ID: {data['task_id']})"
+                )
             elif event == Event.ERROR:
-                await emitter.error_update(f"❌ Error during scrape: {data.get('exception')}")
+                await emitter.error_update(
+                    f"❌ Error during scrape: {data.get('exception')}"
+                )
 
         crawler = Crawler(
             self.valves.CRAWL4AI_URL,
@@ -532,7 +557,9 @@ class Tools:
             # Cleanup
             if markdown and self.valves.CLEANUP_REGEX:
                 try:
-                    markdown = re.sub(self.valves.CLEANUP_REGEX, "", markdown, flags=re.DOTALL)
+                    markdown = re.sub(
+                        self.valves.CLEANUP_REGEX, "", markdown, flags=re.DOTALL
+                    )
                 except re.error as e:
                     await emitter.error_update(f"Error in regex pattern: {str(e)}")
 
@@ -550,20 +577,32 @@ class Tools:
                 def remove_external(m):
                     txt, link = m.group(1), m.group(2)
                     ldom = urlparse(link).netloc
-                    return (txt if ldom and ldom != original_domain else m.group(0))
+                    return txt if ldom and ldom != original_domain else m.group(0)
 
-                markdown = re.sub(r"\[([^\]]+)\]\((https?://[^\)]+)\)", remove_external, markdown)
+                markdown = re.sub(
+                    r"\[([^\]]+)\]\((https?://[^\)]+)\)", remove_external, markdown
+                )
 
             # Remove social links
             if markdown and self.valves.EXCLUDE_SOCIAL_MEDIA_LINKS:
-                social = ["facebook.com","twitter.com","instagram.com","linkedin.com",
-                          "pinterest.com","tiktok.com","snapchat.com"]
+                social = [
+                    "facebook.com",
+                    "twitter.com",
+                    "instagram.com",
+                    "linkedin.com",
+                    "pinterest.com",
+                    "tiktok.com",
+                    "snapchat.com",
+                ]
+
                 def remove_social(m):
                     txt, link = m.group(1), m.group(2)
                     ldom = urlparse(link).netloc
-                    return (txt if any(d in ldom for d in social) else m.group(0))
+                    return txt if any(d in ldom for d in social) else m.group(0)
 
-                markdown = re.sub(r"\[([^\]]+)\]\((https?://[^\)]+)\)", remove_social, markdown)
+                markdown = re.sub(
+                    r"\[([^\]]+)\]\((https?://[^\)]+)\)", remove_social, markdown
+                )
 
             # Enforce max content length
             if self.valves.MAX_CONTENT_LENGTH > 0:
