@@ -34,7 +34,7 @@ AI Researcher performs the following:
 
 - **Ollama Settings:**
   - `OLLAMA_ENDPOINT`: Default: `http://host.docker.internal:11434`
-  - `OLLAMA_MODEL`: Default: `llama3.2:latest`
+  - `OLLAMA_QUERY_MODEL`: Default: `llama3.2:latest`
     - (specifically used for generating search queries)
 
 - **Connection Settings:**  
