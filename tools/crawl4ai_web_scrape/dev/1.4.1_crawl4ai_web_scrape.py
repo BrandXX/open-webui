@@ -40,7 +40,6 @@ class Event(Enum):
     """
     Enumeration of events for logging and tracking the scraping/search process.
     """
-
     START = "start"
     WAITING = "waiting"
     FINISHED = "finished"
@@ -53,7 +52,6 @@ class Crawler:
     A lightweight wrapper around the Crawl4AI endpoint that manages
     asynchronous scraping tasks, polling for completion.
     """
-
     def __init__(
         self, base_url: str, token: str = None, timeout=300, poll_interval: int = 2
     ):
@@ -164,7 +162,6 @@ class EventEmitter:
     Helper class to unify event emission. Tools can call progress_update,
     error_update, etc., and the relevant data is sent to a provided emitter callback.
     """
-
     def __init__(self, event_emitter: Callable[[dict], Any] = None):
         """
         :param event_emitter: Callback that receives dictionary events for logging or UI updates.
@@ -221,14 +218,13 @@ class Tools:
         """
         Pydantic model specifying user-configurable valves/parameters for the tool.
         """
-
         # Ollama valves
         OLLAMA_ENDPOINT: str = Field(
             default="http://host.docker.internal:11434",
             description="Ollama endpoint URL",
             advanced=False,
         )
-        OLLAMA_MODEL: str = Field(
+        OLLAMA_QUERY_MODEL: str = Field(
             default="llama3.2:latest",
             description="Name of the Ollama LLM to use for query generation. If empty, fallback expansions are used.",
             advanced=False,
@@ -374,9 +370,7 @@ class Tools:
         self.citation = True
         self.llm = None
 
-    async def call_ollama(
-        self, model_name: str, system_prompt: str, user_query: str
-    ) -> str:
+    async def call_ollama(self, model_name: str, system_prompt: str, user_query: str) -> str:
         """
         Call the Ollama API at self.valves.OLLAMA_ENDPOINT with the specified model_name,
         system instructions, and user prompt. Non-streaming call, returning the final text.
@@ -407,12 +401,12 @@ class Tools:
     async def generate_queries(self, user_query: str) -> List[str]:
         """
         Generate short, semicolon-delimited queries from user input via Ollama.
-        - If OLLAMA_MODEL is empty, return trivial expansions.
+        - If OLLAMA_QUERY_MODEL is empty, return trivial expansions.
         - Otherwise, call `call_ollama` using system instructions for narrow output.
         :param user_query: The user’s topic or request.
         :return: A list of 3-5 short queries or fallback expansions.
         """
-        model_name = (self.valves.OLLAMA_MODEL or "").strip()
+        model_name = (self.valves.OLLAMA_QUERY_MODEL or "").strip()
         # If no model is provided, fallback to trivial expansions
         if not model_name:
             return [user_query, f"{user_query} info", f"{user_query} research"]
@@ -430,9 +424,7 @@ class Tools:
         )
 
         # Call Ollama for the generation
-        raw_response = await self.call_ollama(
-            model_name, system_instructions, user_query
-        )
+        raw_response = await self.call_ollama(model_name, system_instructions, user_query)
 
         # Parse the semicolon-delimited output
         parts = [r.strip() for r in raw_response.split(";") if r.strip()]
@@ -459,9 +451,7 @@ class Tools:
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
                 if response.status != 200:
-                    raise Exception(
-                        f"SearXNG search failed with status {response.status}"
-                    )
+                    raise Exception(f"SearXNG search failed with status {response.status}")
                 data = await response.json()
                 seen, links = set(), []
                 for r in data.get("results", []):
@@ -520,27 +510,21 @@ class Tools:
         emitter = EventEmitter(__event_emitter__)
         try:
             # Step 1: Query generation
-            await emitter.progress_update(
-                f"🔄 Generating search queries from: {user_query}"
-            )
+            await emitter.progress_update(f"🔄 Generating search queries from: {user_query}")
             if __event_emitter__:
-                await __event_emitter__(
-                    {
-                        "type": "event",
-                        "data": {
-                            "event": Event.QUERY_GENERATION.value,
-                            "description": f"Generating queries from user input: {user_query}",
-                        },
-                    }
-                )
+                await __event_emitter__({
+                    "type": "event",
+                    "data": {
+                        "event": Event.QUERY_GENERATION.value,
+                        "description": f"Generating queries from user input: {user_query}",
+                    },
+                })
             expanded_queries = await self.generate_queries(user_query)
 
             # Step 2: Search SearXNG for each expanded query
             all_urls = []
             for idx, q in enumerate(expanded_queries, start=1):
-                await emitter.progress_update(
-                    f"🔍 Searching SearXNG for query #{idx}: {q}"
-                )
+                await emitter.progress_update(f"🔍 Searching SearXNG for query #{idx}: {q}")
                 new_urls = await self.search_searxng(q)
                 all_urls.extend(new_urls)
 
@@ -563,8 +547,7 @@ class Tools:
                 # Filter out low quality if requested
                 if self.valves.SKIP_LOW_QUALITY:
                     ranked_urls = [
-                        (url, rank)
-                        for url, rank in ranked_urls
+                        (url, rank) for url, rank in ranked_urls
                         if rank >= self.valves.MIN_RANK_THRESHOLD
                     ]
 
@@ -582,13 +565,9 @@ class Tools:
 
             async def scrape(url, rank):
                 async with semaphore:
-                    rank_display = (
-                        f"[Quality: {rank:.2f}]" if self.valves.ENABLE_RANKING else ""
-                    )
+                    rank_display = f"[Quality: {rank:.2f}]" if self.valves.ENABLE_RANKING else ""
                     await emitter.progress_update(f"🌐 Scraping: {url} {rank_display}")
-                    markdown = await self.web_scrape(
-                        url, __event_emitter__=__event_emitter__, __user__=__user__
-                    )
+                    markdown = await self.web_scrape(url, __event_emitter__=__event_emitter__, __user__=__user__)
 
                     # Optionally include source info
                     if self.valves.INCLUDE_SOURCES:
@@ -598,9 +577,7 @@ class Tools:
                             foot = f"\n\n*Source: [{domain}]({url})*"
                             return f"---\n\n{hdr}{markdown.strip()}{foot}"
                         elif self.valves.CITATION_STYLE == "footnote":
-                            return (
-                                f"---\n\n{hdr}{markdown.strip()}\n\n[^{domain}]: {url}"
-                            )
+                            return f"---\n\n{hdr}{markdown.strip()}\n\n[^{domain}]: {url}"
                         else:
                             return f"---\n\n{hdr}{markdown.strip()}"
                     else:
@@ -643,7 +620,7 @@ class Tools:
         Scrape a single URL using Crawl4AI. Supports optional concurrency limit from the caller.
         :param url: The webpage to scrape.
         :param __event_emitter__: Optional callback for logging.
-        :param __user__: Not used here, but available for future expansions.
+        :param __user__: Optional user context (not used in this example).
         :return: Extracted markdown or an error message.
         """
         emitter = EventEmitter(__event_emitter__)
@@ -707,9 +684,7 @@ class Tools:
             # Cleanup regex
             if markdown and self.valves.CLEANUP_REGEX:
                 try:
-                    markdown = re.sub(
-                        self.valves.CLEANUP_REGEX, "", markdown, flags=re.DOTALL
-                    )
+                    markdown = re.sub(self.valves.CLEANUP_REGEX, "", markdown, flags=re.DOTALL)
                 except re.error as e:
                     await emitter.error_update(f"Error in regex pattern: {str(e)}")
 
@@ -729,30 +704,20 @@ class Tools:
                     ldom = urlparse(link).netloc
                     return txt if ldom and ldom != original_domain else m.group(0)
 
-                markdown = re.sub(
-                    r"\[([^\]]+)\]\((https?://[^\)]+)\)", remove_external, markdown
-                )
+                markdown = re.sub(r"\[([^\]]+)\]\((https?://[^\)]+)\)", remove_external, markdown)
 
             # Remove social media links if requested
             if markdown and self.valves.EXCLUDE_SOCIAL_MEDIA_LINKS:
                 social = [
-                    "facebook.com",
-                    "twitter.com",
-                    "instagram.com",
-                    "linkedin.com",
-                    "pinterest.com",
-                    "tiktok.com",
-                    "snapchat.com",
+                    "facebook.com","twitter.com","instagram.com","linkedin.com",
+                    "pinterest.com","tiktok.com","snapchat.com"
                 ]
-
                 def remove_social(m):
                     txt, link = m.group(1), m.group(2)
                     ldom = urlparse(link).netloc
                     return txt if any(d in ldom for d in social) else m.group(0)
 
-                markdown = re.sub(
-                    r"\[([^\]]+)\]\((https?://[^\)]+)\)", remove_social, markdown
-                )
+                markdown = re.sub(r"\[([^\]]+)\]\((https?://[^\)]+)\)", remove_social, markdown)
 
             # Enforce a maximum content length if configured
             if self.valves.MAX_CONTENT_LENGTH > 0:
