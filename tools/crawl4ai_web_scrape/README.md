@@ -1,184 +1,159 @@
-# Crawl4AI Web Scraper
+# AI Researcher (Previously known as 'Crawl4AI Web Scraper')
 
-Welcome to the *Crawl4AI Web Scraper* tool for Open-WebUI! This robust, configurable tool lets you scrape web pages effortlessly, complete with advanced settings and safety measures to handle various scraping scenarios. Ready to dive in and harvest some data securely and efficiently? Let's get scraping!
+Welcome to the *AI Researcher* tool for Open-WebUI! This advanced, robust, and configurable web scraping tool integrates Crawl4AI, Ollama, and SearXNG to perform targeted research tasks effortlessly. From generating precise search queries to concurrent scraping and content ranking, AI Researcher securely handles complex research workflows. Ready to level up your web scraping? Let's dive in!  
+  - Notes
+     - This tool is being ranmed and branded as "AI Researcher". Further iterations of this tool are going to be located under 'AI Researcher' within the tools section.
 
 ---
 
 ## Overview
 
-This tool performs the following:
-- **Asynchronous Web Scraping:** Leverages `aiohttp` and `asyncio` to fetch content without blocking your workflow.
-- **Real-Time Updates:** Emits progress messages at every key stage—start, waiting, finished, and error.
-- **Configurable Options:** Use CSS selectors or overrides to pinpoint exactly what you need.
-- **Browser Simulation:** Emulates real user behavior with headless mode, configurable browser types, and advanced anti-detection measures.
-- **Content Filtering:** Cleans your markdown output with customizable regex filters.
-- **Link Management:** Optionally skip internal links and exclude external or social media links for tidier results.
-- **Enhanced Stability:** Improved error handling, memory management, and safety checks.
+AI Researcher performs the following:
+- **Query Generation:** Uses Ollama to create precise, targeted search queries from user input.
+- **SearXNG Integration:** Performs searches and collects high-quality URLs.
+- **Concurrent Web Scraping:** Leverages Crawl4AI with asynchronous scraping for efficient data retrieval.
+- **Ranking & Filtering:** Ranks search results to prioritize quality content.
+- **Real-Time Updates:** Provides continuous feedback on scraping progress, errors, and completion status.
+- **Advanced Browser Simulation:** Simulates realistic browsing with headless operation and anti-detection measures.
+- **Content Cleaning & Formatting:** Uses advanced regex and customizable rules to clean markdown outputs.
 
 ---
 
 ## Features
 
-- **Asynchronous Operation:** Smooth, non-blocking scraping powered by `aiohttp` and `asyncio`.
-- **Advanced Configurations:** Adjust connection details, browser behavior, scraping parameters, and regex safely.
-- **Emitter Feedback:** Clear real-time updates during scraping.
-- **Advanced Content Filtering:** Efficient removal of unwanted content.
-- **Memory Safety:** Limits markdown size to prevent excessive memory usage.
-- **Error Handling:** Graceful management of errors, including regex and network issues.
-- **User-Friendly Setup:** Copy-paste into your Open-WebUI installation—no extra setup required.
+- **Asynchronous Efficiency:** Rapid scraping without workflow interruptions.
+- **AI-Powered Queries:** Ollama-generated queries improve search relevance.
+- **Advanced Ranking:** Intelligent URL ranking prioritizes high-quality sources.
+- **Customizable Valves:** Tailor scraping and output parameters easily.
+- **Memory & Stability Optimizations:** Safeguards prevent excessive memory usage and gracefully handle errors.
+- **Real-Time Feedback:** Instant updates keep you informed throughout.
 
 ---
 
 ## Configuration
 
-- **Connection & Authentication Settings:**  
-  - **CRAWL4AI_URL:**  
-    Default: `http://crawl4ai:11235/`
-  - **CRAWL4AI_TOKEN:**  
-    Default: `123456`
+- **Ollama Settings:**
+  - `OLLAMA_ENDPOINT`: Default: `http://host.docker.internal:11434`
+  - `OLLAMA_MODEL`: Default: `llama3.2:latest`
+    - (specifically used for generating search queries)
 
-- **Scraping Options:**  
-  - **CSS_SELECTOR:**  
-    Choose from predefined selectors (`main`, `article`, `div.prose`, etc.)
-  - **CSS_SELECTOR_OVERRIDE:**  
-    Custom selector overriding defaults.
+- **Connection Settings:**  
+  - `CRAWL4AI_URL`: Default: `http://crawl4ai:11235/`
+  - `CRAWL4AI_TOKEN`: Default: `123456`
+
+- **Search Settings:**
+  - `SEARXNG_URL`: Default: `http://host.docker.internal:8080/search?q=<query>&format=json`
+  - `NUM_RESULTS`: Default: `5`
+  - `ENABLE_RANKING`: Default: `True`
+  - `MIN_RANK_THRESHOLD`: Default: `0.6`
 
 - **Browser & Simulation Settings:**  
-  - **HEADLESS_MODE:**  
-    Default: `True`
-  - **USER_AGENT:**  
-    Default: `Mozilla/5.0`
-  - **BROWSER_TYPE:**  
-    Options: `chromium`, `firefox`, `webkit` (Default: `chromium`)
-  - **SIMULATE_USER:**  
-    Default: `True`
-  - **ENABLE_MAGIC_MODE:**  
-    Default: `True`
-  - **OVERRIDE_NAVIGATOR:**  
-    Default: `True`
+  - `HEADLESS_MODE`: Default: `True`
+  - `USER_AGENT`: Default: `Mozilla/5.0`
+  - `BROWSER_TYPE`: Options: `chromium`, `firefox`, `webkit` (Default: `chromium`)
+  - `SIMULATE_USER`: Default: `True`
+  - `ENABLE_MAGIC_MODE`: Default: `True`
 
-- **Performance & Timing Controls:**  
-  - **TIMEOUT_SECONDS:**  
-    Default: `120`
-  - **POLL_INTERVAL_SECONDS:**  
-    Default: `3`
+- **Performance Controls:**  
+  - `TIMEOUT_SECONDS`: Default: `120`
+  - `POLL_INTERVAL_SECONDS`: Default: `3`
+  - `MAX_CONCURRENT_SCRAPES`: Default: `5`
 
-- **Content Filtering & Output Options:**  
-  - **CLEANUP_REGEX:**  
-    Default regex to clean markdown.
-  - **INCLUDE_IMAGES:**  
-    Default: `False`
-  - **MAX_CONTENT_LENGTH:**  
-    Default: `0` (No limit)
-  - **SKIP_INTERNAL_LINKS:**  
-    Default: `False`
-  - **EXCLUDE_EXTERNAL_LINKS:**  
-    Default: `False`
-  - **EXCLUDE_SOCIAL_MEDIA_LINKS:**  
-    Default: `False`
+- **Content Filtering & Output:**
+  - `CLEANUP_REGEX`: Default regex provided for markdown cleaning.
+  - `INCLUDE_IMAGES`: Default: `False`
+  - `MAX_CONTENT_LENGTH`: Default: `0` (No limit)
+  - `CITATION_STYLE`: Options: `inline`, `footnote`, `endnotes` (Default: `inline`)
 
 ---
 
 ## How It Works
 
-1. **Initiate Scraping:**  
-   Sends an asynchronous request to Crawl4AI server with your URL.
-
-2. **Progress Updates:**  
-   Real-time status:
-   - *Start*: Scraping initiated.
-   - *Waiting*: Processing ongoing.
-   - *Finished*: Scraping complete.
-   - *Error*: Detailed error messages.
-
-3. **Content Processing:**  
-   Applies filters and link rules.
-
-4. **Output:**  
-   Returns cleaned markdown.
+1. **Query Generation:** AI-generated search queries ensure targeted content retrieval.
+2. **Search & Ranking:** Collects and ranks URLs from SearXNG based on quality.
+3. **Concurrent Scraping:** Efficiently scrapes multiple URLs simultaneously.
+4. **Content Processing:** Cleans and formats scraped markdown.
+5. **Result Compilation:** Provides markdown with optional source citations.
 
 ---
 
 ## Usage Instructions
 
-1. **Copy & Paste:**  
-   Paste into Open-WebUI.
+1. **Installation:** Copy and paste into your Open-WebUI environment.
 
-2. **Customize (Optional):**  
-   Adjust settings in the `Tools.Valves` class.
+2. **Customization (Optional):** Adjust valves in the `Tools.Valves` class.
 
-3. **Trigger Tool:**  
-   Provide URL and initiate scraping.
+3. **Initiate Research:** Enter a query or URL.
 
-### Formatting Requests in Open-WebUI Chat:
+### Example Requests:
 
-Your requests must follow one of these formats:
-
-- **Only the URL:**
+- **Simple query:**
 ```
-https://example.com/article
+AI trends in healthcare 2025
 ```
 
-- **URL with Instructions (to LLM):**
+- **Detailed Instructions:**
 ```
-https://example.com/article
-Return the content as a bulleted list. Include only headlines and dates.
-```
-
-- **Detailed Instructions (to LLM):**
-```
-https://example.com/article
-Return the content as a table. Include columns for Date, Model, Manufacturer, and Price.
+AI trends in healthcare 2025
+Summarize major findings and include citations.
 ```
 
-4. **Monitor Progress:**  
-   Watch real-time emitter updates.
+- **Specific URL with Formatting:**
+```
+https://example.com/research-paper
+Extract key points as bullet points and cite sources.
+```
+
+4. **Monitor Progress:** Receive live status updates as scraping progresses.
 
 ---
 
 ## Code Overview
 
-The tool is implemented in Python using:
-- **`aiohttp` & `asyncio`:** Asynchronous scraping.
-- **`pydantic`:** Configurable settings.
-- **Custom Event Hooks:** Real-time feedback.
-- **Enhanced Safety:** Improved error handling and memory safeguards.
+Built with:
+- **`aiohttp` & `asyncio`:** Async web requests.
+- **`pydantic`:** Easy configuration management.
+- **Custom Event Hooks:** Real-time progress updates.
+- **Advanced Safety Measures:** Robust error handling and memory controls.
 
 ---
 
 ## Changelog
 
+- **Version 1.4.1**
+  - Integrated Ollama for query generation.
+  - Added URL ranking
+  - Strengthened the SearXNG integration.
+  - Improved concurrent scraping and memory optimization.
+  - Changed name due to functionality changes
+  - Clearly marked code for easy updating
+
 - **Version 1.1.0**
-  - Improved resource cleanup and memory management.
-  - Added markdown content size limitations.
-  - Enhanced regex error handling and stability.
-  - Added safety checks for empty markdown retrieval.
-  - Updated emitter to provide detailed error messages.
+  - Improved resource management and stability.
+  - Added markdown content limits and error checks.
 
 - **Version 1.0.0**
-  - Initial asynchronous scraping release.
-  - Basic configuration and emitter feedback.
+  - Initial async scraping capabilities.
 
 ---
 
 ## Contributions
 
-Contributions welcome! Fork and submit pull requests at [GitHub](https://github.com/BrandXX/open-webui/). Help us improve this tool further!
+We welcome your contributions! Submit pull requests or issues on [GitHub](https://github.com/BrandXX/open-webui/).
 
 ---
 
 ## License
 
-Licensed under the MIT License. See LICENSE file for details.
+Licensed under MIT. See LICENSE for details.
 
 ---
 
 ## Acknowledgments
 
-Thanks to the Open-WebUI community, especially **focuses**, for initial inspiration. Your support makes this tool shine!
+Special thanks to the Open-WebUI community and **focuses** for their foundational support and inspiration!
 
 ---
 
-Happy scraping, and may your data be ever abundant! 😄
-
+Happy researching, and may your findings be ever insightful! 🚀😄
 
