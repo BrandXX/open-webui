@@ -10,7 +10,7 @@ required_open_webui_version: 0.3.9
 Notes:
 Thanks to 'focuses' over at the Open-WebUI community for providing the initial code @ https://openwebui.com/t/focuses/crawl4ai_web_scrape
 
-Crawl4AI Web Scraper Tool
+AI Researcher Tool
 -------------------------
 This tool integrates with SearXNG for search, uses Crawl4AI for scraping,
 and utilizes Ollama to generate short, semicolon-delimited search queries.
