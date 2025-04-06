@@ -1,0 +1,1 @@
+Please provide me with a coding query, and I'll do my best to assist you. Whether it's debugging, writing code snippets, or explaining concepts, I'm here to help. Be specific about your question, and I'll provide a clear and concise technical response.
