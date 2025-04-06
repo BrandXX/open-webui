@@ -21,15 +21,42 @@ This directory contains resources for AI coding assistants to understand Open-We
 
 ```
 /__llm_instructions/
-├── __functions/            # Examples and documentation for functions
-├── __prompts/              # Prompt templates and examples
-├── __tools/                # Documentation for tool development
-├── api_reference.md        # Comprehensive API reference documentation
-├── component_templates.md  # Templates and examples for components
-├── integration_patterns.md # Integration patterns and best practices
-├── technical_architecture.md # System architecture overview
-├── troubleshooting_guide.md # Solutions for common issues
-└── README.md               # Overview of LLM instructions
+├── __functions/                 # Examples and documentation for functions
+│   ├── anthropic_example.py     # Example Anthropic integration
+│   ├── deepseek_r1_example.py   # Example DeepSeek integration
+│   ├── n8n_pipe_example.py      # Example n8n pipeline integration
+│   ├── run_code_example.py      # Example code execution function
+│   ├── unload_models_from_vram_example.py # Example VRAM management
+│   └── visualize_data_example.py # Example data visualization
+├── __prompts/                   # Prompt templates and examples
+│   ├── code_expert_example.md   # Example prompt for code generation
+│   ├── linux_command_expert_example.md # Example prompt for Linux commands
+│   ├── multi_agents_example.md  # Example prompt for multi-agent systems
+│   ├── stable_diffusion_example.md # Example prompt for Stable Diffusion
+│   ├── stable_diffusion_image_generator_helper_example.md # Helper for image generation
+│   └── system+prompt_generator-enhancer_example.md # Prompt enhancement example
+├── __tools/                     # Documentation for tool development
+│   ├── calculator_example.py    # Example calculator tool
+│   ├── enhanced_web_scrape_example.py # Enhanced web scraping tool
+│   ├── image_gen_example.py     # Example image generation tool
+│   ├── weather_example.py       # Example weather information tool
+│   ├── web_scrape_example.py    # Basic web scraping tool
+│   └── web_search_example.py    # Web search tool example
+├── a_friendly_guide.md          # User-friendly guide to Open-WebUI
+├── action_functions_in_open-webui.md # Guide to action functions
+├── api_reference.md             # Comprehensive API reference documentation
+├── component_templates.md       # Templates and examples for components
+├── documentation.md             # Documentation standards and templates
+├── filters_in_open-webui.md     # Guide to filters in Open-WebUI
+├── integration_patterns.md      # Integration patterns and best practices
+├── llm_instructions.md          # Instructions for LLMs
+├── metadata_header_instructions.md # Guide for metadata headers
+├── migration_guide_open-webui_ 0.4_to_0.5.md # Migration guide
+├── pipes_in_open-webui.md       # Guide to pipes in Open-WebUI
+├── technical_architecture.md    # System architecture overview
+├── tools_&_functions_in_open-webui.md # Overview of tools and functions
+├── troubleshooting_guide.md     # Solutions for common issues
+└── README.md                    # Overview of LLM instructions
 ```
 
 Purpose: Provides documentation templates, code examples, best practices, migration guides, and metadata standards for AI assistants. The directory also includes comprehensive guides for developing Functions, Tools, and Pipelines, including technical architecture, API references, component templates, integration patterns, and troubleshooting information.
