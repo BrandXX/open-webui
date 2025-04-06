@@ -24,10 +24,15 @@ This directory contains resources for AI coding assistants to understand Open-We
 ├── __functions/            # Examples and documentation for functions
 ├── __prompts/              # Prompt templates and examples
 ├── __tools/                # Documentation for tool development
+├── api_reference.md        # Comprehensive API reference documentation
+├── component_templates.md  # Templates and examples for components
+├── integration_patterns.md # Integration patterns and best practices
+├── technical_architecture.md # System architecture overview
+├── troubleshooting_guide.md # Solutions for common issues
 └── README.md               # Overview of LLM instructions
 ```
 
-Purpose: Provides documentation templates, code examples, best practices, migration guides, and metadata standards for AI assistants.
+Purpose: Provides documentation templates, code examples, best practices, migration guides, and metadata standards for AI assistants. The directory also includes comprehensive guides for developing Functions, Tools, and Pipelines, including technical architecture, API references, component templates, integration patterns, and troubleshooting information.
 
 ## functions
 
