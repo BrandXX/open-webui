@@ -22,26 +22,44 @@ This directory contains resources for AI coding assistants to understand Open-We
 ```
 /__llm_instructions/
 ├── __functions/                 # Examples and documentation for functions
+│   ├── add_to_memories_action_buttoni_example.py # Example memory action button
 │   ├── anthropic_example.py     # Example Anthropic integration
+│   ├── artifacts_v2_example.py   # Example artifacts handling
+│   ├── autotool_filter_example.py # Example auto tool filtering
+│   ├── azure_ai_example.py      # Example Azure AI integration
 │   ├── deepseek_r1_example.py   # Example DeepSeek integration
+│   ├── google_genai_example.py  # Example Google Gemini integration
+│   ├── mixture_of_agents_example.py # Example Mixture of Agents pattern
 │   ├── n8n_pipe_example.py      # Example n8n pipeline integration
 │   ├── run_code_example.py      # Example code execution function
 │   ├── unload_models_from_vram_example.py # Example VRAM management
 │   └── visualize_data_example.py # Example data visualization
 ├── __prompts/                   # Prompt templates and examples
 │   ├── code_expert_example.md   # Example prompt for code generation
+│   ├── docker-compose_example.md # Example prompt for Docker Compose
 │   ├── linux_command_expert_example.md # Example prompt for Linux commands
 │   ├── multi_agents_example.md  # Example prompt for multi-agent systems
+│   ├── prompt_engineer_this_example.md # Example prompt engineering guide
+│   ├── python_owui_example.md   # Example prompt for Python Open-WebUI
 │   ├── stable_diffusion_example.md # Example prompt for Stable Diffusion
 │   ├── stable_diffusion_image_generator_helper_example.md # Helper for image generation
-│   └── system+prompt_generator-enhancer_example.md # Prompt enhancement example
+│   ├── system+prompt_generator-enhancer_example.md # Prompt enhancement example
+│   ├── system_prompt_generator-enhancer_example.md # System prompt enhancer
+│   └── system_prompt_generator_example.md # System prompt generator
 ├── __tools/                     # Documentation for tool development
 │   ├── calculator_example.py    # Example calculator tool
 │   ├── enhanced_web_scrape_example.py # Enhanced web scraping tool
+│   ├── files_example.py         # Example file management tool
+│   ├── get_time_example.py      # Example time retrieval tool
 │   ├── image_gen_example.py     # Example image generation tool
+│   ├── llm_web_search_example.py # LLM-enhanced web search tool
+│   ├── memory_enhancement_tool_met-memories_table_example.py # Memory enhancement tool
+│   ├── stock_reporter_example.py # Stock information reporting tool
+│   ├── supreme_file_management_example.py # Advanced file management tool
 │   ├── weather_example.py       # Example weather information tool
 │   ├── web_scrape_example.py    # Basic web scraping tool
-│   └── web_search_example.py    # Web search tool example
+│   ├── web_search_example.py    # Web search tool example
+│   └── youtube_transcript_provider_example.py # YouTube transcript retrieval tool
 ├── a_friendly_guide.md          # User-friendly guide to Open-WebUI
 ├── action_functions_in_open-webui.md # Guide to action functions
 ├── api_reference.md             # Comprehensive API reference documentation
