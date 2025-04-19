@@ -1,138 +1,144 @@
 # Unload Models from VRAM
 
-Welcome to the *Unload Models from VRAM* function for Open-WebUI! This streamlined tool effortlessly unloads all models from your VRAM using Ollama's REST API. If your VRAM feels a bit crowded, here's your chance to clear it out with a simple click—think of it as spring cleaning for your digital workspace. 😉
+Welcome to the **Unload Models from VRAM** function for Open‑WebUI!  
+This streamlined tool effortlessly frees GPU memory by unloading models through Ollama’s REST API. If your VRAM feels a bit crowded, clear it out with a single click—think of it as spring‑cleaning for your digital workspace. 😉
 
 ---
 
 ## Overview
 
-This function performs the following:
-- **Retrieves Loaded Models:** Fetches a list of models currently loaded in VRAM by calling the `/api/ps` endpoint.
-- **Unloads Each Model:** Sends a POST request to `/api/generate` for each retrieved model to unload it.
-- **One-click Action:** Unloads instantly upon clicking—no confirmation needed, for ultimate convenience.
-- **Configurable Settings:** The endpoint URL, timeout, and logging level are configurable with sensible defaults.
-- **Robust Error Handling:** Provides clear emitter messages and detailed logs for troubleshooting endpoint issues, timeouts, or connection errors.
+This function:
+
+- **Retrieves Loaded Models:** Calls `/api/ps` to list models currently in VRAM.  
+- **Unloads Each Model:** Sends a POST to `/api/generate` (`prompt:""`, `keep_alive:0`, `stream:false`) for every model found.  
+- **One‑Click Action:** Just hit the “Unload Models from VRAM” button—no extra confirmation screens.  
+- **Configurable Settings:** Endpoint URL, time‑outs, SSL verification, delay, and logging level are all adjustable.  
+- **Robust Error Handling:** Clear emitter messages and detailed logs help you troubleshoot misconfigurations, time‑outs, or connection issues.  
+- **Progress Feedback:** Real‑time status updates (with a progress bar) keep you informed while each model unloads.
 
 ---
 
 ## Features
 
-- **REST API Integration:** Seamlessly interacts with Ollama's API.
-- **Configurable Endpoint & Timeout:** Default endpoint is `http://host.docker.internal:11434` and timeout is 3 seconds.
-- **Adjustable Logging Level:** Choose from `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL` to control verbosity.
-- **Graceful Error Handling & Emitter Feedback:** Clear, concise messages guide you if issues occur.
-- **Debug Logging:** Detailed logs for diagnosing problems without overwhelming the user.
-- **Asynchronous Operation:** Smoothly integrates within chat-based interactions.
+| Feature | Description |
+|---------|-------------|
+| **REST API Integration** | Seamlessly interacts with Ollama’s API. |
+| **Configurable Endpoint & Time‑out** | Defaults: `http://host.docker.internal:11434`, `3 s`. |
+| **SSL Verification Toggle** | `VERIFY_SSL` valve lets you enable or disable TLS cert checks. |
+| **Adjustable Logging Level** | `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`. |
+| **Selective Unload** | Pass a `models` list in the request body to unload just one or two heavyweights. |
+| **Delay Between Unloads** | Optional (default 200 ms) delay ensures the UI renders progress nicely. |
+| **Graceful Error Handling** | Concise user messages + verbose logs when you need them. |
+| **Asynchronous Operation** | Non‑blocking design keeps the chat UI responsive. |
 
 ---
 
 ## Configuration
 
-- **Ollama API Endpoint:**  
-  Default: `http://host.docker.internal:11434`  
-  *(Change this if your setup uses a different URL.)*
+| Valve | Default | Purpose |
+|-------|---------|---------|
+| `OLLAMA_ENDPOINT` | `http://host.docker.internal:11434` | Base URL of the Ollama REST API. |
+| `REQUEST_TIMEOUT` | `3` seconds | HTTP request time‑out. |
+| `UNLOAD_DELAY_MS` | `200` | Wait time between model unloads (set `0` for maximum speed). |
+| `VERIFY_SSL` | `true` | Toggle TLS certificate verification. |
+| `LOG_LEVEL` | `INFO` | Logging verbosity. |
 
-- **Timeout:**  
-  Default: `3` seconds  
-  *(Adjust higher if needed.)*
-
-- **Logging Level:**  
-  Default: `INFO`  
-  *(Choose from `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL`.)*
-
-- **Version:**  
-  `1.0.1`
-
-- **Required Open-WebUI Version:**  
-  `0.3.9`
+- **Version:** `1.1.2`  
+- **Required Open‑WebUI Version:** `0.3.9`
 
 ---
 
 ## How It Works
 
-1. **Trigger Action:**  
-   Click the 'Unload Models from VRAM' button near the 'Regenerate' icon to immediately initiate unloading.
+1. **Trigger Action**  
+   Click the *Unload Models from VRAM* button (next to “Regenerate”) to start.
 
-2. **Retrieving Models:**  
-   Makes a GET request to `{OLLAMA_ENDPOINT}/api/ps` to fetch loaded models. If none are found or an error occurs, a clear message is displayed.
+2. **Retrieve Models**  
+   A GET request to `{OLLAMA_ENDPOINT}/api/ps` fetches the current VRAM residents.
 
-3. **Unloading Process:**  
-   Sends a POST request to `{OLLAMA_ENDPOINT}/api/generate` with payload `{ "model": model, "keep_alive": 0 }` for each retrieved model to unload them.
+3. **Unload Loop**  
+   For each model, a POST to `{OLLAMA_ENDPOINT}/api/generate` with payload  
+   ```json
+   { "model": "<name>", "prompt": "", "keep_alive": 0, "stream": false }
+   ```  
+   frees the GPU memory. A short delay (`UNLOAD_DELAY_MS`) lets the UI breathe.
 
-4. **Error Handling:**  
-   Issues concise error messages for misconfigured endpoints, timeouts, or connection issues. Detailed logs are available for troubleshooting.
-
-5. **Feedback:**  
-   Progress updates and final results keep you informed every step of the way.
+4. **Error & Progress Reporting**  
+   Status events show which model is unloading and how far you’ve progressed. Problems (timeouts, bad URLs, etc.) surface in‑chat and in logs.
 
 ---
 
 ## Usage Instructions
 
-1. **Click and Go:**  
-   Simply click the 'Unload Models from VRAM' icon next to the 'Regenerate' button at the bottom of your chat interface.
+1. **Click and Go**  
+   Hit the *Unload Models from VRAM* icon → models start unloading immediately.
 
-2. **Sit Back and Relax:**  
-   Models unload immediately. No confirmation is required—watch your VRAM clear instantly!
+2. **Watch the Progress Bar**  
+   A live counter shows how many models remain. When it hits 100 %, you’re done.
 
 ---
 
 ## Checking Logs
 
-Logs can be checked directly from the console or Docker logs:
+```bash
+# Docker example
+docker logs <open-webui_container> --follow
+```
 
-- **Console Logs:** Monitor the terminal window or Docker logs running Open-WebUI.
-  ```bash
-  docker logs <container_name_or_id>
-  ```
-
-Set your logging level to `DEBUG` for detailed troubleshooting or use `INFO` for general usage.
+Set `LOG_LEVEL=DEBUG` for the deepest insights, or stick with `INFO` for day‑to‑day use.
 
 ---
 
 ## Code Overview
 
-The function is written in Python, utilizing:
-- **`requests`** for HTTP communication.
-- **`pydantic`** for managing configuration.
-- **`asyncio`** for asynchronous operations and event-driven interactions.
+Built with:
 
-Each step, from retrieving to unloading models, is handled efficiently and clearly logged for easy troubleshooting.
+- **`requests`** – HTTP calls to Ollama.  
+- **`asyncio`** – Keeps the chat UI fluid.  
+- **`pydantic`** – Validates and documents valves.  
+- **`logging`** – Structured logs for easy troubleshooting.
 
 ---
 
 ## Changelog
 
-- **Version 1.0.1**
-  - Removed confirmation prompt for streamlined operation.
-  - Added configurable logging level valve with dropdown options.  
+- **Version 1.1.2**  
+  - Added `UNLOAD_DELAY_MS` to control a short pause between unloads (default 200 ms) so progress updates aren’t skipped.  
+
+- **Version 1.1.1**  
+  - Restored inner `Valves` class (action button visible again).  
+  - Introduced `VERIFY_SSL` valve for secure API calls.  
+  - Added `stream:false` to unload payload for faster single‑JSON responses.  
+  - Implemented progress emission and optional *selective unload* via request body.  
+  - Upgraded logging initialization (`logging.basicConfig`).  
+
+- **Version 1.0.1**  
+  - Removed confirmation prompt for faster operation.  
+  - Added configurable logging level valve.  
 
 - **Version 1.0.0**  
-  - Initial release.
-  - Robust error handling with emitter feedback.
-  - Detailed logging.
-  - Asynchronous design for chat integration.
+  - Initial release with robust error handling, emitter feedback, and async design.
 
 ---
 
 ## Contributions
 
-Contributions are warmly welcomed! For improvements, bug fixes, or feature requests, please visit the [GitHub repository](https://github.com/BrandXX/open-webui/) to submit pull requests.
-
-*(Note: New to collaborating? No worries—let's learn and grow together!)*
+Have an idea? Found a bug? Open a pull request or issue on [GitHub](https://github.com/BrandXX/open-webui/).  
+First‑timers welcome—let’s build something great together!
 
 ---
 
 ## License
 
-Licensed under the MIT License. See the LICENSE file for details.
+MIT License — see `LICENSE` for details.
 
 ---
 
 ## Acknowledgments
 
-A special thank-you to the Open-WebUI community and contributors for your continuous enhancements. You're awesome!
+Huge thanks to the Open‑WebUI community and contributors for your constant improvements. You rock!
 
 ---
 
 Happy unloading, and enjoy your tidy VRAM! 😄🚀
+
