@@ -1,5 +1,6 @@
 """
 title: Unload Models from VRAM
+icon_url: data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLW1vbml0b3ItZG93biI+PHBhdGggZD0iTTEyIDEzVjciLz48cGF0aCBkPSJtMTUgMTAtMyAzLTMtMyIvPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIxNCIgeD0iMiIgeT0iMyIgcng9IjIiLz48cGF0aCBkPSJNMTIgMTd2NCIvPjxwYXRoIGQ9Ik04IDIxaDgiLz48L3N2Zz4=
 description: Unloads/frees all models from GPU's VRAM using Ollama's REST API.
     Key valves
     ----------
