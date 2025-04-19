@@ -1,4 +1,3 @@
-
 """
 title: Unload Models from VRAM
 description: Unloads/frees all models from GPU's VRAM using Ollama's REST API.
