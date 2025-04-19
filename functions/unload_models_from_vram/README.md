@@ -102,10 +102,10 @@ Built with:
 
 ## Changelog
 
-- **Version 1.1.2**  
+- **Version 1.1.2**  **("DEV")**  
   - Added `UNLOAD_DELAY_MS` to control a short pause between unloads (default 200 ms) so progress updates aren’t skipped.  
 
-- **Version 1.1.1**  
+- **Version 1.1.1**  **("DEV")**  
   - Restored inner `Valves` class (action button visible again).  
   - Introduced `VERIFY_SSL` valve for secure API calls.  
   - Added `stream:false` to unload payload for faster single‑JSON responses.  
