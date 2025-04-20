@@ -44,7 +44,7 @@ This function:
 | `LOG_LEVEL` | `INFO` | Logging verbosity. |
 
 - **Version:** `1.1.2`  
-- **Required Open‑WebUI Version:** `0.3.9`
+- **Required Open‑WebUI Version:** `0.6.0`
 
 ---
 
