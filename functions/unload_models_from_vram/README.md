@@ -102,7 +102,7 @@ Built with:
 
 ## Changelog
 
-- **Version 1.1.2**  **("DEV")**  
+- **Version 1.1.2**  
   - Added `UNLOAD_DELAY_MS` valve to control a short pause between unloads (default 200 ms) so progress updates aren’t skipped.  
   - Introduced custom toolbar icon via `icon_url` header (Lucide “monitor‑down” SVG embedded as Base‑64 data URI, fully offline‑friendly).  
 
