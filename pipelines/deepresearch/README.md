@@ -1,4 +1,4 @@
-# **TESTING** SmolAgents Deep Research Pipeline (Currently in Development)
+# **TESTING** - SmolAgents Deep Research Pipeline (Currently in Development)
 
 **A pipeline designed to initiate and manage comprehensive research tasks using Open-WebUI integrated with SmolAgents.**
 
